@@ -17,20 +17,22 @@
 ## 学习阶段进展
 
 - 2025.07.06 
-  - 完成了项目前端和后端的初始化，对代码进行了大概的了解，学习了企业级项目的规范和完整性和严谨性
+  - 项目前端和后端的初始化，对代码进行了大概的了解，学习了企业级项目的规范和完整性和严谨性
 
 - 2025.07.07 
-  - 完成了新增员工接口的开发，使用 JWT 和 ThreadLocal 完成了对当前操作员工 ID 的追踪，定义了异常处理器完善前端的报错返回信息
-  - 完成分页查询的接口开发，使用 PageHelper 插件完成相关的开发，遇到的日期格式化问题使用扩展 MVC 的消息转换器进行全局的解决方法
+  - 新增员工接口的开发，使用 JWT 和 ThreadLocal 完成了对当前操作员工 ID 的追踪，定义了异常处理器完善前端的报错返回信息
+  - 分页查询的接口开发，使用 PageHelper 插件完成相关的开发，遇到的日期格式化问题使用扩展 MVC 的消息转换器进行全局的解决方法
+  - 启用禁用员工接口开发
+  - 编辑员工接口代码开发：查询回显 + 更新员工信息
 
 
 ## 相关知识点
 ### ThreadLocal
 不是 **线程**，只是线程中一个独立的变量，类似通道技术，对每个线程中存储的变量进行独立存储，在我们的项目中，每一次的请求都是一个新的线程，
-我们这里通过 JWT 的解析，拿到前端发送请求中的 Header 中的 token 中的信息，通过进行解析 token 中的信息，将这个员工的 ID 存入当前线程的 threadLocal 中
+我们这里通过 JWT 的解析，拿到前端发送请求中的 Header 中的 token 中的信息，通过进行解析 token 中的信息，将这个员工的 ID 存入当前线程的 ThreadLocal 中
 完成用户 ID 的全局存储。
 
-### MVC消息转换器
+### MVC 消息转换器
 
 ```java
 /**
@@ -46,7 +48,7 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 }
 ```
 
-- 消息转换器相关代码写在我们的config中的WebMvcConfiguration类中，这个类要继承Springboot的WebMvcConfigurationSupport这个类来实现在运行项目时的配置
-- 具体概念：**MVC消息转换器是 Spring MVC 框架中的一个核心组件，专门负责将 HTTP 请求的 body（正文）和 Java 对象之间进行双向转换**
+- 消息转换器相关代码写在我们的 config 中的 WebMvcConfiguration 类中，这个类要继承 Springboot 的 WebMvcConfigurationSupport 这个类来实现在运行项目时的配置
+- 具体概念：**MVC 消息转换器是 Spring MVC 框架中的一个核心组件，专门负责将 HTTP 请求的 body（正文）和 Java 对象之间进行双向转换**
 
-- **MappingJackson2HttpMessageConverter**：这个是专门用来进行JSON转化的一个转换器，通过对他的设置，我们实现了 **统一全局的日期格式**。
+- **MappingJackson2HttpMessageConverter**：这个是专门用来进行 JSON 转化的一个转换器，通过对他的设置，我们实现了 **统一全局的日期格式**。
