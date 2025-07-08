@@ -25,6 +25,10 @@
   - 启用禁用员工接口开发
   - 编辑员工接口代码开发：查询回显 + 更新员工信息
   - 修改密码接口代码开发：使用ThreadLocal来获取相关的ID，为PasswordEditDTO中的empIdj进行赋值，然后根据实际合理的业务进行开发
+- 2025.07.08
+  - 分类管理接口代码开发
+  - 公共字段自动填充的切面开发，使用了 **AOP切面编程**,见 `AutoFillAspect.java`
+
 
 
 ## 相关知识点
@@ -53,3 +57,15 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 - 具体概念：**MVC 消息转换器是 Spring MVC 框架中的一个核心组件，专门负责将 HTTP 请求的 body（正文）和 Java 对象之间进行双向转换**
 
 - **MappingJackson2HttpMessageConverter**：这个是专门用来进行 JSON 转化的一个转换器，通过对他的设置，我们实现了 **统一全局的日期格式**。
+
+### AOP切面编程
+
+- 连接点：JoinPoint， 可以被 AOP 控制的方法
+- 通知：Advice，指那些重复的逻辑
+- 切入点：PointCut，切入点，匹配连接点的条件，通知仅会在切入点方法执行时被应用
+- 切面：Aspect，描述通知与切入点的对应关系
+- 目标对象：Target， 通知所应用的对象
+- **execution**:`execution(访问修饰符？ 返回值 包名.类名.?方法名(方法参数) throw 异常？)`
+- **定义切点可以使用自定义注解**：`@Pointcut("@annotation(com.itheima.anno.Log)")`
+
+![image-20250702203423180](http://img.wiretender.top/img/20250702203423814.webp)
