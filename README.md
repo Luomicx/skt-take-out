@@ -27,6 +27,9 @@
   - 分类管理接口代码开发
   - 公共字段自动填充的切面开发，使用了 **AOP切面编程**,见 `AutoFillAspect.java`
   - 文件上传接口的开发
+- 2025.07.09
+  - 新增菜品接口代码开发
+
 
 
 
@@ -68,3 +71,24 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 - **定义切点可以使用自定义注解**：`@Pointcut("@annotation(com.itheima.anno.Log)")`
 
 ![image-20250702203423180](http://img.wiretender.top/img/20250702203423814.webp)
+
+### 动态SQL
+
+- **foreach遍历**：
+
+  ```sql
+  <foreach collection="flavors" item="df">
+      (#{df.dishId}, #{df.name}, #{df.value})
+  </foreach>
+  ```
+
+- **返回主键值的xml写法**： `useGeneratedKeys="true" keyProperty="id"`
+  - 这样的写法，就会使得我们在实体对象`dish.getId()`中可以得到插入后的主键值
+
+```sql
+<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into dish (name, category_id, price, image, description, create_time, update_time, create_user, update_user, status)
+    values
+    (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser}, #{status})
+</insert>
+```
