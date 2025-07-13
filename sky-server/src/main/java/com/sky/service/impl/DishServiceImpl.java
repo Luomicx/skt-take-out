@@ -44,6 +44,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 新增菜品和对应的口味
+     *
      * @param dishDTO
      */
     @Override
@@ -70,6 +71,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 菜品分页查询
+     *
      * @param dishPageQueryDTO
      * @return
      */
@@ -84,6 +86,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 菜品批量删除接口
+     *
      * @param ids
      */
     @Override
@@ -115,6 +118,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 根据ID查询菜品
+     *
      * @param id
      * @return
      */
@@ -132,6 +136,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 修改菜品
+     *
      * @param dishDTO
      */
     @Override
@@ -152,4 +157,31 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.insertBatch(flavors);
         }
     }
+
+    /**
+     * 根据分类ID查询菜品
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> list(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
+    }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        // 直接进行菜品的停售和起售
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+        dishMapper.update(dish);
+    }
+
+
 }
