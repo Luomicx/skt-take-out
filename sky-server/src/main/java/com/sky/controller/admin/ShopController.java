@@ -25,13 +25,14 @@ public class ShopController {
 
     /**
      * 设置店铺状态
+     *
      * @param status
      * @return
      */
     @PutMapping("/{status}")
     @ApiOperation("设置营业状态")
     public Result setStatus(@PathVariable Integer status) {
-        log.info("设置店铺营业状态：{}",status);
+        log.info("设置店铺营业状态：{}", status);
         redisTemplate.opsForValue().set(KEY, status);
         return Result.success();
     }
