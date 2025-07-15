@@ -4,11 +4,11 @@
 
 
 ## 项目技术栈
-- 后端：JavaSE，Springboot，SpringMVC，JavaWeb，Spring, Maven
+- 后端：JavaSE，Springboot，SpringMVC，JavaWeb，Spring,  Maven， Spring Data Redis， Spring Cache
 - 数据持久化框架：Mybatis(后期考虑使用增强化插件)
-- 数据库：MySQL
-- 前端：Vue3，Vite
-- 中间件：Redis，JWT 分布认证， Nginx
+- 数据库：MySQL， Redis
+- 前端：Vue3，Vite，Uniapp
+- 中间件：JWT 分布认证， Nginx
 - 项目部署：docker，Linux
 - 版本控制：Git
 
@@ -42,6 +42,7 @@
   - 微信小程序代码导入
   - 微信登录接口开发
   - 商品浏览功能代码导入（基础的CRUD）
+  - 缓存套餐功能开发
 
 
 
