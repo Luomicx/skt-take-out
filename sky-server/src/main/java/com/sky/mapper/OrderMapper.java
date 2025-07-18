@@ -12,6 +12,10 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
+    /**
+     * 插入新订单
+     * @param orders
+     */
     void insert(Orders orders);
 
     /**
@@ -27,11 +31,26 @@ public interface OrderMapper {
      */
     void update(Orders orders);
 
+    /**
+     * 分页查询
+     * @param ordersPageQueryDTO
+     * @return
+     */
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
+    /**
+     * 根据ID查询订单
+     * @param id
+     * @return
+     */
     @Select("select * from orders where id = #{id}")
     Orders getById(Long id);
 
+    /**
+     * 根据状态查询数量
+     * @param status
+     * @return
+     */
     @Select("select count(id) from orders where id = #{status}")
     Integer countStatus(Integer status);
 

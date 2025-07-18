@@ -22,10 +22,10 @@
   - 分页查询的接口开发，使用 PageHelper 插件完成相关的开发，遇到的日期格式化问题使用扩展 MVC 的消息转换器进行全局的解决方法
   - 启用禁用员工接口开发
   - 编辑员工接口代码开发：查询回显 + 更新员工信息
-  - 修改密码接口代码开发：使用ThreadLocal来获取相关的ID，为PasswordEditDTO中的empIdj进行赋值，然后根据实际合理的业务进行开发
+  - 修改密码接口代码开发：使用 ThreadLocal 来获取相关的 ID，为 PasswordEditDTO 中的 empIdj 进行赋值，然后根据实际合理的业务进行开发
 - 2025.07.08
   - 分类管理接口代码开发
-  - 公共字段自动填充的切面开发，使用了 **AOP切面编程**,见 `AutoFillAspect.java`
+  - 公共字段自动填充的切面开发，使用了 **AOP 切面编程**, 见 `AutoFillAspect.java`
   - 文件上传接口的开发
 - 2025.07.09
   - 新增菜品接口代码开发
@@ -38,15 +38,21 @@
 
 - 2025.07.15
   - 店铺营业设置接口开发
-  - 学习Redis相关开发
+  - 学习 Redis 相关开发
   - 微信小程序代码导入
   - 微信登录接口开发
-  - 商品浏览功能代码导入（基础的CRUD）
+  - 商品浏览功能代码导入（基础的 CRUD）
   - 缓存套餐功能开发
 - 2025.07.17
   - 地址簿功能代码开发
   - 购物车功能代码开发
   - 用户端所有订单功能开发
+- 2025.07.18
+  - 订单所有功能开发
+  - 订单定时状态功能开发
+  - 店铺订单提醒、催单等功能开发
+  - websocket 开发
+
 
 
 
@@ -78,21 +84,21 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 
 - **MappingJackson2HttpMessageConverter**：这个是专门用来进行 JSON 转化的一个转换器，通过对他的设置，我们实现了 **统一全局的日期格式**。
 
-### AOP切面编程
+### AOP 切面编程
 
 - 连接点：JoinPoint， 可以被 AOP 控制的方法
 - 通知：Advice，指那些重复的逻辑
 - 切入点：PointCut，切入点，匹配连接点的条件，通知仅会在切入点方法执行时被应用
 - 切面：Aspect，描述通知与切入点的对应关系
 - 目标对象：Target， 通知所应用的对象
-- **execution**:`execution(访问修饰符？ 返回值 包名.类名.?方法名(方法参数) throw 异常？)`
+- **execution**: `execution(访问修饰符？ 返回值 包名.类名.?方法名(方法参数) throw 异常？)`
 - **定义切点可以使用自定义注解**：`@Pointcut("@annotation(com.itheima.anno.Log)")`
 
 ![image-20250702203423180](http://img.wiretender.top/img/20250702203423814.webp)
 
-### 动态SQL
+### 动态 SQL
 
-- **foreach遍历**：
+- **foreach 遍历**：
 
   ```sql
   <foreach collection="flavors" item="df">
@@ -100,8 +106,8 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
   </foreach>
   ```
 
-- **返回主键值的xml写法**： `useGeneratedKeys="true" keyProperty="id"`
-  - 这样的写法，就会使得我们在实体对象`dish.getId()`中可以得到插入后的主键值
+- **返回主键值的 xml 写法**： `useGeneratedKeys="true" keyProperty="id"`
+  - 这样的写法，就会使得我们在实体对象 `dish.getId()` 中可以得到插入后的主键值
 
 ```sql
 <insert id="insert" useGeneratedKeys="true" keyProperty="id">
@@ -115,7 +121,7 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 
 ### 简介
 
-- **Redis** 是一个基于**内存**的 key-value 结构数据库。
+- **Redis** 是一个基于 **内存** 的 key-value 结构数据库。
 - 基于内存存储，读写性能高
 - 适合存储热点数据
 - 企业应用广泛
@@ -126,9 +132,9 @@ protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 - 适合存储热点数据（热点商品、资讯、新闻）
 - 企业应用广泛
 
-Redis是用C语言开发的一个开源的高性能键值对(key-value)数据库，官方提供的数据是可以达到100000+的QPS（每秒内查询次数）。它存储的value类型比较丰富，也被称为结构化的NoSql数据库。
+Redis 是用 C 语言开发的一个开源的高性能键值对(key-value)数据库，官方提供的数据是可以达到 100000+的 QPS（每秒内查询次数）。它存储的 value 类型比较丰富，也被称为结构化的 NoSql 数据库。
 
-NoSql（Not Only SQL），不仅仅是SQL，泛指**非关系型数据库**。NoSql数据库并不是要取代关系型数据库，而是关系型数据库的补充。
+NoSql（Not Only SQL），不仅仅是 SQL，泛指 **非关系型数据库**。NoSql 数据库并不是要取代关系型数据库，而是关系型数据库的补充。
 
 **关系型数据库(RDBMS)：**
 
@@ -145,7 +151,7 @@ NoSql（Not Only SQL），不仅仅是SQL，泛指**非关系型数据库**。No
 
 ### 数据类型
 
-Redis存储的是key-value结构的数据，其中key是字符串类型，value有5种常用的数据类型：
+Redis 存储的是 key-value 结构的数据，其中 key 是字符串类型，value 有 5 种常用的数据类型：
 
 - 字符串 string
 - 哈希 hash
@@ -155,22 +161,22 @@ Redis存储的是key-value结构的数据，其中key是字符串类型，value�
 
 **解释**
 
-- 字符串(string)：普通字符串，Redis中最简单的数据类型
-- 哈希(hash)：也叫散列，类似于Java中的HashMap结构
-- 列表(list)：按照插入顺序排序，可以有重复元素，类似于Java中的LinkedList
-- 集合(set)：无序集合，没有重复元素，类似于Java中的HashSet
+- 字符串(string)：普通字符串，Redis 中最简单的数据类型
+- 哈希(hash)：也叫散列，类似于 Java 中的 HashMap 结构
+- 列表(list)：按照插入顺序排序，可以有重复元素，类似于 Java 中的 LinkedList
+- 集合(set)：无序集合，没有重复元素，类似于 Java 中的 HashSet
 - 有序集合(sorted set/zset)：集合中每个元素关联一个分数(score)，根据分数升序排序，没有重复元素
 
 ### 操作命令
 
 Redis 中字符串类型常用命令：
 
-- **SET** key value 					         设置指定key的值
-- **GET** key                                        获取指定key的值
-- **SETEX** key seconds value         设置指定key的值，并将 key 的过期时间设为 seconds 秒
+- **SET** key value 					         设置指定 key 的值
+- **GET** key                                        获取指定 key 的值
+- **SETEX** key seconds value         设置指定 key 的值，并将 key 的过期时间设为 seconds 秒
 - **SETNX** key value                        只有在 key    不存在时设置 key 的值
 
-Redis hash 是一个string类型的 field 和 value 的映射表，hash特别适合用于存储对象，常用命令：
+Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象，常用命令：
 
 - **HSET** key field value             将哈希表 key 中的字段 field 的值设为 value
 - **HGET** key field                       获取存储在哈希表中指定字段的值
@@ -186,7 +192,7 @@ Redis 列表是简单的字符串列表，按照插入顺序排序，常用命�
 - **LLEN** key                                        获取列表长度
 - **BRPOP** key1 [key2 ] timeout       移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超    时或发现可弹出元素为止
 
-Redis set 是string类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据，常用命令：
+Redis set 是 string 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据，常用命令：
 
 - **SADD** key member1 [member2]            向集合添加一个或多个成员
 - **SMEMBERS** key                                         返回集合中的所有成员
@@ -195,7 +201,7 @@ Redis set 是string类型的无序集合。集合成员是唯一的，这就意�
 - **SUNION** key1 [key2]                                 返回所有给定集合的并集
 - **SREM** key member1 [member2]            移除集合中一个或多个成员
 
-Redis有序集合是string类型元素的集合，且不允许有重复成员。每个元素都会关联一个double类型的分数。常用命令：
+Redis 有序集合是 string 类型元素的集合，且不允许有重复成员。每个元素都会关联一个 double 类型的分数。常用命令：
 
 常用命令：
 
@@ -204,12 +210,12 @@ Redis有序集合是string类型元素的集合，且不允许有重复成员。
 - **ZINCRBY** key increment member                              有序集合中对指定成员的分数加上增量 increment
 - **ZREM** key member [member ...]                                移除有序集合中的一个或多个成员
 
-Redis的通用命令是不分数据类型的，都可以使用的命令：
+Redis 的通用命令是不分数据类型的，都可以使用的命令：
 
 - KEYS pattern 		查找所有符合给定模式( pattern)的 key 
 - EXISTS key 		检查给定 key 是否存在
 - TYPE key 		返回 key 所储存的值的类型
 - DEL key 		该命令用于在 key 存在是删除 key
 
-更多命令可以参考Redis中文网：https://www.redis.net.cn
+更多命令可以参考 Redis 中文网：https://www.redis.net.cn
 
